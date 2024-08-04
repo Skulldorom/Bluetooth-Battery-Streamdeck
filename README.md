@@ -27,6 +27,11 @@ The official [Documentation](https://www.bluetoothgoodies.com/info/battery-monit
 
 ## Battery Icons
 
-| Empty                                                                             | Low                                                                           | One Quarter                                                                           | Half                                                                            | Three Quarter                                                                             | Full                                                                            |
-| --------------------------------------------------------------------------------- | ----------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
-| ![empty](com.skulldorom.bluetoothbattery.sdPlugin\imgs\actions\battery\Empty.png) | ![low](com.skulldorom.bluetoothbattery.sdPlugin\imgs\actions\battery\Low.png) | ![one quarter](com.skulldorom.bluetoothbattery.sdPlugin\imgs\actions\battery\One.png) | ![half](com.skulldorom.bluetoothbattery.sdPlugin\imgs\actions\battery\Half.png) | ![three quarter](com.skulldorom.bluetoothbattery.sdPlugin\imgs\actions\battery\Three.png) | ![full](com.skulldorom.bluetoothbattery.sdPlugin\imgs\actions\battery\Full.png) |
+<p float="left">
+	<img src="com.skulldorom.bluetoothbattery.sdPlugin\imgs\actions\battery\Empty.png" alt="empty" width="50">
+	<img src="com.skulldorom.bluetoothbattery.sdPlugin\imgs\actions\battery\Low.png" alt="low" width="50">
+	<img src="com.skulldorom.bluetoothbattery.sdPlugin\imgs\actions\battery\One.png" alt="one quarter" width="50">
+	<img src="com.skulldorom.bluetoothbattery.sdPlugin\imgs\actions\battery\Half.png" alt="half" width="50">
+	<img src="com.skulldorom.bluetoothbattery.sdPlugin\imgs\actions\battery\Three.png" alt="three quarter" width="50">
+	<img src="com.skulldorom.bluetoothbattery.sdPlugin\imgs\actions\battery\Full.png" alt="full" width="50">
+<p float="left">
