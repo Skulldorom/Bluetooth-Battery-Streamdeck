@@ -2,6 +2,10 @@
 
 This plugin is used to show the battery % of bluetooth devices
 
+## Download
+
+You can get the latest plugin release from the [releases page](https://github.com/Skulldorom/Bluetooth-Battery-Streamdeck/releases)
+
 ## Requirements
 
 Using [Bluetooth Battery Monitor](https://www.bluetoothgoodies.com/)
