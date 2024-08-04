@@ -3,9 +3,12 @@
 This plugin is used to show the battery % of bluetooth devices
 
 ## Requirements
-Using [Bluetooth Battery Monitor]("https://www.bluetoothgoodies.com/")
-This requires the paid version as well as enabling the api
+
+Using [Bluetooth Battery Monitor](https://www.bluetoothgoodies.com/)
+
+- Paid version of the app is required
+- Bluetooth Battery Monitor API enabled
 
 ### Enabling Bluetooth Battery Monitor API
 
-[DOCS]("https://www.bluetoothgoodies.com/info/battery-monitor-api/")
+The official [Documentation](https://www.bluetoothgoodies.com/info/battery-monitor-api/) from the developer
