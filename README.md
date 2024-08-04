@@ -17,3 +17,10 @@ You can get the latest plugin release from the [releases page](https://github.co
 ### Enabling Bluetooth Battery Monitor API
 
 The official [Documentation](https://www.bluetoothgoodies.com/info/battery-monitor-api/) from the developer
+
+## Default Configuration
+
+- API URL: `http://127.0.0.1:9876/devices`
+- Device Number: 0
+- Device Name: NONE
+- Refresh Interval: 5 Minutes
