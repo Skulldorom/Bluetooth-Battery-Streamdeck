@@ -24,3 +24,12 @@ The official [Documentation](https://www.bluetoothgoodies.com/info/battery-monit
 - Device Number: 0
 - Device Name: NONE
 - Refresh Interval: 5 Minutes
+
+## Battery Icons
+
+<img src="com.skulldorom.bluetoothbattery.sdPlugin\imgs\actions\battery\Empty.png" alt="empty" width="100">
+<img src="com.skulldorom.bluetoothbattery.sdPlugin\imgs\actions\battery\Low.png" alt="low" width="100">
+<img src="com.skulldorom.bluetoothbattery.sdPlugin\imgs\actions\battery\One.png" alt="one quarter" width="100">
+<img src="com.skulldorom.bluetoothbattery.sdPlugin\imgs\actions\battery\Half.png" alt="half" width="100">
+<img src="com.skulldorom.bluetoothbattery.sdPlugin\imgs\actions\battery\Three.png" alt="three quarter" width="100">
+<img src="com.skulldorom.bluetoothbattery.sdPlugin\imgs\actions\battery\Full.png" alt="full" width="100">
