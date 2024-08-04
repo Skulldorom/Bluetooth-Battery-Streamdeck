@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bluetooth Battery Settings</title>
+    <script src="https://cdn.jsdelivr.net/gh/geekyeggo/sdpi-components@v2/dist/sdpi-components.js"></script>
+</head>
+<body>
+	<sdpi-item label="API URL">
+		<sdpi-textarea
+		  setting="apiUrl"
+		  placeholder="http://127.0.0.1:9876/devices"
+		  rows="1"
+		></sdpi-textarea>
+	  </sdpi-item>
+
+	<sdpi-item label="Device Number">
+		<sdpi-textarea
+		  setting="deviceNumber"
+		  placeholder="0"
+		  rows="1"
+		  min="0"
+		  pattern="[0-9]+"
+		></sdpi-textarea>
+	</sdpi-item>
+	
+	<sdpi-item label="Device Name">
+		<sdpi-textarea
+		  setting="deviceName"
+		  placeholder="Device Name"
+		  rows="1"
+		></sdpi-textarea>
+	</sdpi-item>
+</body>
+</html>

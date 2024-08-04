@@ -1,4 +1,4 @@
-import { action, KeyDownEvent, SingletonAction, WillAppearEvent } from "@elgato/streamdeck";
+import { action, KeyDownEvent, SingletonAction, WillAppearEvent, DidReceiveSettingsEvent } from "@elgato/streamdeck";
 
 @action({ UUID: "com.skulldorom.bluetoothbattery.battery" })
 export class BluetoothBatteryAction extends SingletonAction<BluetoothBatterySettings> {
@@ -26,9 +26,14 @@ export class BluetoothBatteryAction extends SingletonAction<BluetoothBatterySett
         this.checkBatteryLevel(ev);
     }
 
-    private async checkBatteryLevel(ev: WillAppearEvent<BluetoothBatterySettings> | KeyDownEvent<BluetoothBatterySettings>): Promise<void> {
+	async onDidReceiveSettings(ev: DidReceiveSettingsEvent<BluetoothBatterySettings>): Promise<void> {
+		// Manually trigger the battery check when settings are updated
+		this.checkBatteryLevel(ev);
+	}
+
+    private async checkBatteryLevel(ev: WillAppearEvent<BluetoothBatterySettings> | KeyDownEvent<BluetoothBatterySettings> | DidReceiveSettingsEvent<BluetoothBatterySettings>): Promise<void> {
         try {
-            const response = await fetch("http://127.0.0.1:9876/devices", {
+            const response = await fetch(ev.payload.settings.apiUrl??"http://127.0.0.1:9876/devices", {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
@@ -37,18 +42,47 @@ export class BluetoothBatteryAction extends SingletonAction<BluetoothBatterySett
 
             if (response.ok) {
                 const data: any = await response.json();
-                console.log("Battery Level:", data);
+
+				let deviceNumber = ev.payload.settings.deviceNumber ?? 0;
+				let deviceName = ev.payload.settings.deviceName ?? "Unknown Device";
 
                 // Update the Stream Deck title with battery level info from the API response
-                const batteryLevel = data.level ?? "Unknown";
-                await ev.action.setTitle(`Battery: ${batteryLevel}%`);
-            } else {
-                console.error("API Error:", response.status, response.statusText);
-                await ev.action.setTitle("Battery Error");
+				if (deviceNumber >= data["devices"].length) {
+					await ev.action.setTitle("Device\nNot\nFound");
+					await ev.action.setImage("imgs/actions/battery/Error");
+					return;
+				}
+				
+
+                const batteryLevel = data["devices"][deviceNumber].level;
+                await ev.action.setTitle(`${deviceName}\n${batteryLevel}%`);
+
+				// Update the Stream Deck image based on the battery level
+				if (batteryLevel >= 90) {
+					await ev.action.setImage("imgs/actions/battery/Full");
+				}
+				else if (batteryLevel >= 70) {
+					await ev.action.setImage("imgs/actions/battery/Three");
+				}
+				else if (batteryLevel >= 50) {
+					await ev.action.setImage("imgs/actions/battery/Half");
+				}
+				else if (batteryLevel >= 30) {
+					await ev.action.setImage("imgs/actions/battery/One");
+				}
+				else if (batteryLevel >= 20) {
+					await ev.action.setImage("imgs/actions/battery/Low");
+				}
+				else {
+					await ev.action.setImage("imgs/actions/battery/Empty");
+				}
+
+
             }
         } catch (error) {
             console.error("Network Error:", error);
-            await ev.action.setTitle("Network Error");
+            await ev.action.setTitle("Error");
+			await ev.action.setImage("imgs/actions/battery/Error");
         }
     }
 
