@@ -27,9 +27,6 @@ The official [Documentation](https://www.bluetoothgoodies.com/info/battery-monit
 
 ## Battery Icons
 
-<img src="com.skulldorom.bluetoothbattery.sdPlugin\imgs\actions\battery\Empty.png" alt="empty" width="100">
-<img src="com.skulldorom.bluetoothbattery.sdPlugin\imgs\actions\battery\Low.png" alt="low" width="100">
-<img src="com.skulldorom.bluetoothbattery.sdPlugin\imgs\actions\battery\One.png" alt="one quarter" width="100">
-<img src="com.skulldorom.bluetoothbattery.sdPlugin\imgs\actions\battery\Half.png" alt="half" width="100">
-<img src="com.skulldorom.bluetoothbattery.sdPlugin\imgs\actions\battery\Three.png" alt="three quarter" width="100">
-<img src="com.skulldorom.bluetoothbattery.sdPlugin\imgs\actions\battery\Full.png" alt="full" width="100">
+| Empty                                                                             | Low                                                                           | One Quarter                                                                           | Half                                                                            | Three Quarter                                                                             | Full                                                                            |
+| --------------------------------------------------------------------------------- | ----------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
+| ![empty](com.skulldorom.bluetoothbattery.sdPlugin\imgs\actions\battery\Empty.png) | ![low](com.skulldorom.bluetoothbattery.sdPlugin\imgs\actions\battery\Low.png) | ![one quarter](com.skulldorom.bluetoothbattery.sdPlugin\imgs\actions\battery\One.png) | ![half](com.skulldorom.bluetoothbattery.sdPlugin\imgs\actions\battery\Half.png) | ![three quarter](com.skulldorom.bluetoothbattery.sdPlugin\imgs\actions\battery\Three.png) | ![full](com.skulldorom.bluetoothbattery.sdPlugin\imgs\actions\battery\Full.png) |
