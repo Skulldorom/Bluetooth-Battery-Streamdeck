@@ -23,6 +23,7 @@ export class BluetoothBatteryAction extends SingletonAction<BluetoothBatterySett
 
     async onKeyDown(ev: KeyDownEvent<BluetoothBatterySettings>): Promise<void> {
         // Manually trigger the battery check
+		await ev.action.showOk();
         this.checkBatteryLevel(ev);
     }
 
@@ -81,7 +82,7 @@ export class BluetoothBatteryAction extends SingletonAction<BluetoothBatterySett
             }
         } catch (error) {
             console.error("Network Error:", error);
-            await ev.action.setTitle("Error");
+            await ev.action.setTitle("Api\nError");
 			await ev.action.setImage("imgs/actions/battery/Error");
         }
     }
