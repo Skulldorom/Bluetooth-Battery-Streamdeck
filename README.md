@@ -5,6 +5,8 @@ Using [Bluetooth Battery Monitor](https://www.bluetoothgoodies.com/)
 
 ![Bluetooth Battery Monitor for Streamdeck](docs/images/example.png)
 
+![Bluetooth Battery Monitor for Streamdeck](docs/images/Animation.gif)
+
 ## Download
 
 You can get the latest plugin release from the [releases page](https://github.com/Skulldorom/Bluetooth-Battery-Streamdeck/releases/latest)
