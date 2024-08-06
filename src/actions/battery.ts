@@ -23,7 +23,6 @@ export class BluetoothBatteryAction extends SingletonAction<BluetoothBatterySett
 
     async onKeyDown(ev: KeyDownEvent<BluetoothBatterySettings>): Promise<void> {
         // Manually trigger the battery check
-		await ev.action.showOk();
         this.checkBatteryLevel(ev);
     }
 
@@ -58,25 +57,10 @@ export class BluetoothBatteryAction extends SingletonAction<BluetoothBatterySett
                 const batteryLevel = data["devices"][deviceNumber].level;
                 await ev.action.setTitle(`${deviceName}\n${batteryLevel}%`);
 
+				
+
 				// Update the Stream Deck image based on the battery level
-				if (batteryLevel >= 90) {
-					await ev.action.setImage("imgs/actions/battery/Full");
-				}
-				else if (batteryLevel >= 70) {
-					await ev.action.setImage("imgs/actions/battery/Three");
-				}
-				else if (batteryLevel >= 50) {
-					await ev.action.setImage("imgs/actions/battery/Half");
-				}
-				else if (batteryLevel >= 30) {
-					await ev.action.setImage("imgs/actions/battery/One");
-				}
-				else if (batteryLevel >= 20) {
-					await ev.action.setImage("imgs/actions/battery/Low");
-				}
-				else {
-					await ev.action.setImage("imgs/actions/battery/Empty");
-				}
+				await animateBatteryImage(ev,batteryLevel);
 
 
             }
@@ -93,6 +77,27 @@ export class BluetoothBatteryAction extends SingletonAction<BluetoothBatterySett
             clearInterval(this.intervalId);
         }
     }
+}
+
+// Function to animate the battery level image
+async function animateBatteryImage(ev: WillAppearEvent<BluetoothBatterySettings> | KeyDownEvent<BluetoothBatterySettings> | DidReceiveSettingsEvent<BluetoothBatterySettings>,batteryLevel: number): Promise<void> {
+	let waitTime = 500
+	await ev.action.setImage("imgs/actions/battery/Full");
+	if (batteryLevel >= 90) return;
+	await new Promise(r => setTimeout(r, waitTime));
+	await ev.action.setImage("imgs/actions/battery/Three");
+	if (batteryLevel >= 70) return;
+	await new Promise(r => setTimeout(r, waitTime));
+	await ev.action.setImage("imgs/actions/battery/Half");
+	if (batteryLevel >= 50) return;
+	await new Promise(r => setTimeout(r, waitTime));
+	await ev.action.setImage("imgs/actions/battery/One");
+	if (batteryLevel >= 30) return;
+	await new Promise(r => setTimeout(r, waitTime));
+	await ev.action.setImage("imgs/actions/battery/Low");
+	if (batteryLevel >= 10) return;
+	await new Promise(r => setTimeout(r, waitTime));
+	await ev.action.setImage("imgs/actions/battery/Empty");
 }
 
 type BluetoothBatterySettings = {
