@@ -35,3 +35,7 @@ The official [Documentation](https://www.bluetoothgoodies.com/info/battery-monit
 	<img src="com.skulldorom.bluetoothbattery.sdPlugin\imgs\actions\battery\Three.png" alt="three quarter" width="50">
 	<img src="com.skulldorom.bluetoothbattery.sdPlugin\imgs\actions\battery\Full.png" alt="full" width="50">
 <p float="left">
+
+### Recources
+
+- [Maker CLI (Beta)](https://github.com/elgatosf/cli)
