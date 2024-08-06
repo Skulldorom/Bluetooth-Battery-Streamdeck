@@ -23,7 +23,6 @@ export class BluetoothBatteryAction extends SingletonAction<BluetoothBatterySett
 
     async onKeyDown(ev: KeyDownEvent<BluetoothBatterySettings>): Promise<void> {
         // Manually trigger the battery check
-		await ev.action.showOk();
         this.checkBatteryLevel(ev);
     }
 
@@ -59,26 +58,38 @@ export class BluetoothBatteryAction extends SingletonAction<BluetoothBatterySett
                 await ev.action.setTitle(`${deviceName}\n${batteryLevel}%`);
 
 				// Update the Stream Deck image based on the battery level
+				const images = [
+					"imgs/actions/battery/Full",
+					"imgs/actions/battery/Three",
+					"imgs/actions/battery/Half",
+					"imgs/actions/battery/One",
+					"imgs/actions/battery/Low",
+					"imgs/actions/battery/Empty"
+				];			
+
+				let steps;
+			
 				if (batteryLevel >= 90) {
-					await ev.action.setImage("imgs/actions/battery/Full");
+					steps = 1;
+				} else if (batteryLevel >= 70) {
+					steps = 2;
+				} else if (batteryLevel >= 50) {
+					steps = 3;
+				} else if (batteryLevel >= 30) {
+					steps = 4;
+				} else if (batteryLevel >= 20) {
+					steps = 5;
+				} else {
+					steps = 6;
 				}
-				else if (batteryLevel >= 70) {
-					await ev.action.setImage("imgs/actions/battery/Three");
+			
+				for (let i = 0; i < steps; i++) {
+					await ev.action.setImage(images[i]);
+					if (i < steps - 1) {
+						new Promise(r => setTimeout(r, 500));
+					}
 				}
-				else if (batteryLevel >= 50) {
-					await ev.action.setImage("imgs/actions/battery/Half");
-				}
-				else if (batteryLevel >= 30) {
-					await ev.action.setImage("imgs/actions/battery/One");
-				}
-				else if (batteryLevel >= 20) {
-					await ev.action.setImage("imgs/actions/battery/Low");
-				}
-				else {
-					await ev.action.setImage("imgs/actions/battery/Empty");
-				}
-
-
+				
             }
         } catch (error) {
             console.error("Network Error:", error);
