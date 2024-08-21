@@ -112,5 +112,5 @@ type BluetoothBatterySettings = {
     apiUrl: string;
 	deviceNumber: number;
 	deviceName: string;
-	charge: false;
+	charge: boolean;
 };
