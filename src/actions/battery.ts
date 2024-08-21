@@ -81,27 +81,36 @@ export class BluetoothBatteryAction extends SingletonAction<BluetoothBatterySett
 
 // Function to animate the battery level image
 async function animateBatteryImage(ev: WillAppearEvent<BluetoothBatterySettings> | KeyDownEvent<BluetoothBatterySettings> | DidReceiveSettingsEvent<BluetoothBatterySettings>,batteryLevel: number): Promise<void> {
+	let batteryArray = ["imgs/actions/battery/Empty","imgs/actions/battery/Low","imgs/actions/battery/One","imgs/actions/battery/Half","imgs/actions/battery/Three","imgs/actions/battery/Full"];
+	let chargeIntervals = [10,30,50,70,90];
 	let waitTime = 500
-	await ev.action.setImage("imgs/actions/battery/Full");
-	if (batteryLevel >= 90) return;
+
+	if(ev.payload.settings.charge) {
+	  batteryArray = batteryArray.reverse();
+	  chargeIntervals = chargeIntervals.reverse();
+	}
+	
+	await ev.action.setImage(batteryArray[0]);
+	if (batteryLevel >= chargeIntervals[4]) return;
 	await new Promise(r => setTimeout(r, waitTime));
-	await ev.action.setImage("imgs/actions/battery/Three");
-	if (batteryLevel >= 70) return;
+	await ev.action.setImage(batteryArray[1]);
+	if (batteryLevel >= chargeIntervals[3]) return;
 	await new Promise(r => setTimeout(r, waitTime));
-	await ev.action.setImage("imgs/actions/battery/Half");
-	if (batteryLevel >= 50) return;
+	await ev.action.setImage(batteryArray[2]);
+	if (batteryLevel >= chargeIntervals[2]) return;
 	await new Promise(r => setTimeout(r, waitTime));
-	await ev.action.setImage("imgs/actions/battery/One");
-	if (batteryLevel >= 30) return;
+	await ev.action.setImage(batteryArray[3]);
+	if (batteryLevel >= chargeIntervals[1]) return;
 	await new Promise(r => setTimeout(r, waitTime));
-	await ev.action.setImage("imgs/actions/battery/Low");
-	if (batteryLevel >= 10) return;
+	await ev.action.setImage(batteryArray[4]);
+	if (batteryLevel >= chargeIntervals[0]) return;
 	await new Promise(r => setTimeout(r, waitTime));
-	await ev.action.setImage("imgs/actions/battery/Empty");
+	await ev.action.setImage(batteryArray[5]);
 }
 
 type BluetoothBatterySettings = {
     apiUrl: string;
 	deviceNumber: number;
 	deviceName: string;
+	charge: true;
 };
