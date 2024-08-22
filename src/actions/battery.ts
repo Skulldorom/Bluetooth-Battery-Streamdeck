@@ -1,43 +1,8 @@
 import { action, KeyDownEvent, SingletonAction, WillAppearEvent, DidReceiveSettingsEvent } from "@elgato/streamdeck";
-import { stringOrUndefined } from "../utils/utils";
 
 @action({ UUID: "com.skulldorom.bluetoothbattery.battery" })
 export class BluetoothBatteryAction extends SingletonAction<BluetoothBatterySettings> {
     private intervalId: NodeJS.Timeout | null = null;
-
-	// Settings
-	private _settings: BluetoothBatterySettings | null = null;
-
-	// Default
-	private apiUrl?: string;
-	private deviceNumber?: number;
-	private deviceName?: string;
-
-	/**
-   * Gets the settings.
-   */
-	get settings() {
-		if (this._settings === null) {
-		  throw new Error("Settings not initialized. This should never happen.");
-		}
-	
-		return this._settings;
-	  }
-	
-	  /**
-	   * Sets the settings.
-	   */
-	set settings(newValue: BluetoothBatterySettings) {
-	this._settings = newValue;
-
-	// Update the settings
-	this.apiUrl = stringOrUndefined(newValue.apiUrl);
-	this.deviceNumber = newValue.deviceNumber ?? newValue.deviceNumber !== "" ? newValue.deviceNumber : 0;
-	this.deviceName = stringOrUndefined(newValue.deviceName);
-
-	}
-	//#endregion
-
 
     onWillAppear(ev: WillAppearEvent<BluetoothBatterySettings>): void | Promise<void> {
         // Clear any existing intervals to avoid multiple timers
@@ -58,7 +23,6 @@ export class BluetoothBatteryAction extends SingletonAction<BluetoothBatterySett
 
     async onKeyDown(ev: KeyDownEvent<BluetoothBatterySettings>): Promise<void> {
         // Manually trigger the battery check
-		this.settings = this.settings;
         this.checkBatteryLevel(ev);
     }
 
@@ -69,10 +33,12 @@ export class BluetoothBatteryAction extends SingletonAction<BluetoothBatterySett
 
     private async checkBatteryLevel(ev: WillAppearEvent<BluetoothBatterySettings> | KeyDownEvent<BluetoothBatterySettings> | DidReceiveSettingsEvent<BluetoothBatterySettings>): Promise<void> {
         // Update the settings
-		this.settings = ev.payload.settings;
+		let _apiUrl = ev.payload.settings.apiUrl !== "" ? ev.payload.settings.apiUrl : null;
+		let _deviceNumber = ev.payload.settings.deviceNumber;
+		let _deviceName = ev.payload.settings.deviceName !== "" ? ev.payload.settings.deviceName : null;
 
 		try {
-			let url =  this.apiUrl ?? "http://127.0.0.1:9876/devices";
+			let url =  _apiUrl ?? "http://127.0.0.1:9876/devices";
             const response = await fetch(url, {
                 method: "GET",
                 headers: {
@@ -83,15 +49,16 @@ export class BluetoothBatteryAction extends SingletonAction<BluetoothBatterySett
             if (response.ok) {
                 const data: any = await response.json();
 
-				let deviceNumber = this.deviceNumber ?? 0;
-				let deviceName = this.deviceName ?? data["devices"][deviceNumber].name;
-
-                // Update the Stream Deck title with battery level info from the API response
+				let deviceNumber = _deviceNumber ?? 0;
+				
+				// Update the Stream Deck title with battery level info from the API response
 				if (deviceNumber >= data["devices"].length) {
 					await ev.action.setTitle("Device\nNot\nFound");
 					await ev.action.setImage("imgs/actions/battery/Error");
 					return;
-				}				
+				}	
+				
+				let deviceName = _deviceName ?? data["devices"][deviceNumber].name;
 
                 const batteryLevel = data["devices"][deviceNumber].level;
                 await ev.action.setTitle(`${deviceName}\n${batteryLevel}%`);				
