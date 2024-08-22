@@ -11,25 +11,24 @@
 		  setting="apiUrl"		  
 		  placeholder="http://127.0.0.1:9876/devices"
 		  value="http://127.0.0.1:9876/devices"
-		></sdpi-item>
+		></sdpi-textfield>
 	</sdpi-item>
 
 	<sdpi-item label="Device Number">
-		<sdpi-textarea
+		<sdpi-textfield
 		  setting="deviceNumber"
 		  placeholder="0"
-		  rows="1"
 		  min="0"
 		  pattern="[0-9]+"
-		></sdpi-textarea>
+		  required
+		></sdpi-textfield>
 	</sdpi-item>
 	
 	<sdpi-item label="Device Name">
-		<sdpi-textarea
+		<sdpi-textfield
 		  setting="deviceName"
 		  placeholder="Device Name"
-		  rows="1"
-		></sdpi-textarea>
+		></sdpi-textfield>
 	</sdpi-item>
 
 	<sdpi-item label="Checkbox">
