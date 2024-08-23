@@ -28,17 +28,6 @@ The official [Documentation](https://www.bluetoothgoodies.com/info/battery-monit
 - Device Name: NONE
 - Refresh Interval: 5 Minutes
 
-## Troubleshooting
-
-### API error
-
-- If you are using a custom url please make sure it is correct
-- If you are using the default ulr please paste the following into your browser and see if it returns a JSON `http://127.0.0.1:9876/devices`
-
-### Device not found
-
-Please check the device number is correct
-
 ## Battery Icons
 
 <p float="left">
@@ -49,6 +38,20 @@ Please check the device number is correct
 	<img src="com.skulldorom.bluetoothbattery.sdPlugin\imgs\actions\battery\Three.png" alt="three quarter" width="50">
 	<img src="com.skulldorom.bluetoothbattery.sdPlugin\imgs\actions\battery\Full.png" alt="full" width="50">
 <p float="left">
+
+## Have Ideas or questions?
+Head over to the [Discussions](https://github.com/Skulldorom/Bluetooth-Battery-Streamdeck/discussions)
+
+# Troubleshooting
+
+### API error
+
+- If you are using a custom url please make sure it is correct
+- If you are using the default ulr please paste the following into your browser and see if it returns a JSON `http://127.0.0.1:9876/devices`
+
+### Device not found
+
+Please check the device number is correct
 
 ### Recources
 
