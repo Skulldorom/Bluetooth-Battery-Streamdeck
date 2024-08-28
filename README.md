@@ -19,6 +19,7 @@ You can get the latest plugin release from the [releases page](https://github.co
 ### Enabling Bluetooth Battery Monitor API
 
 The official [Documentation](https://www.bluetoothgoodies.com/info/battery-monitor-api/) from the developer
+
 - Version used for Bluetooth Battery Monitor 2.22.0.1.
 
 ## Default Configuration
@@ -27,6 +28,7 @@ The official [Documentation](https://www.bluetoothgoodies.com/info/battery-monit
 - Device Number: 0
 - Device Name: NONE
 - Refresh Interval: 5 Minutes
+- Animation Speed: 400ms
 
 ## Battery Icons
 
@@ -40,6 +42,7 @@ The official [Documentation](https://www.bluetoothgoodies.com/info/battery-monit
 <p float="left">
 
 ## Have Ideas or questions?
+
 Head over to the [Discussions](https://github.com/Skulldorom/Bluetooth-Battery-Streamdeck/discussions)
 
 # Troubleshooting
