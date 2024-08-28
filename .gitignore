@@ -5,3 +5,4 @@ node_modules/
 *.sdPlugin/bin
 *.sdPlugin/logs
 com.skulldorom.bluetoothbattery.sdPlugin/com.skulldorom.bluetoothbattery.streamDeckPlugin
+/Downloads

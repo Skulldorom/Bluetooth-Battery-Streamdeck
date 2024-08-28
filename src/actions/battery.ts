@@ -5,20 +5,7 @@ export class BluetoothBatteryAction extends SingletonAction<BluetoothBatterySett
     private intervalId: NodeJS.Timeout | null = null;
 
     onWillAppear(ev: WillAppearEvent<BluetoothBatterySettings>): void | Promise<void> {
-        // Clear any existing intervals to avoid multiple timers
-        if (this.intervalId) {
-            clearInterval(this.intervalId);
-        }
-
-        // Set up a recurring API call every 5 minutes
-        this.intervalId = setInterval(() => {
-            this.checkBatteryLevel(ev);
-        }, 5 * 60 * 1000); // 5 minutes in milliseconds
-
-        // Make an immediate API call when the action appears
-        this.checkBatteryLevel(ev);
-
-        return ev.action.setTitle("Bluetooth Battery");
+        this.onFirstWillAppear(ev);
     }
 
     async onKeyDown(ev: KeyDownEvent<BluetoothBatterySettings>): Promise<void> {
@@ -28,7 +15,28 @@ export class BluetoothBatteryAction extends SingletonAction<BluetoothBatterySett
 
 	async onDidReceiveSettings(ev: DidReceiveSettingsEvent<BluetoothBatterySettings>): Promise<void> {
 		// Manually trigger the battery check when settings are updated
+		this.onFirstWillAppear(ev);
 		this.checkBatteryLevel(ev);
+	}
+
+	private async onFirstWillAppear(ev: WillAppearEvent<BluetoothBatterySettings> | DidReceiveSettingsEvent<BluetoothBatterySettings>): Promise<void> {
+		let _minutes = ev.payload.settings.recurring ?? 5;
+		if (_minutes <= 0) _minutes = 5;
+		
+		// Clear any existing intervals to avoid multiple timers
+        if (this.intervalId) {
+            clearInterval(this.intervalId);
+        }		
+
+        // Set up a recurring API call every 5 minutes
+        this.intervalId = setInterval(() => {
+            this.checkBatteryLevel(ev);
+        }, _minutes * 60 * 1000); // 5 minutes in milliseconds
+
+        // Make an immediate API call when the action appears
+        this.checkBatteryLevel(ev);
+
+        return ev.action.setTitle("Bluetooth Battery");
 	}
 
     private async checkBatteryLevel(ev: WillAppearEvent<BluetoothBatterySettings> | KeyDownEvent<BluetoothBatterySettings> | DidReceiveSettingsEvent<BluetoothBatterySettings>): Promise<void> {
@@ -92,7 +100,17 @@ async function animateBatteryImage(ev: WillAppearEvent<BluetoothBatterySettings>
 		"imgs/actions/battery/Full"];
 
 	let chargeIntervals = [10,30,50,70,90];
-	let waitTime = 500
+	let waitTime = ev.payload.settings.animationTime ?? 500;
+	
+	// Disable animtion if waitime is less than 100ms
+	if (waitTime <= 50) {
+		for (let i = 0; i < batteryArray.length; i++) {
+			if (batteryLevel <= chargeIntervals[i]) {
+				await ev.action.setImage(batteryArray[i]);
+				return;
+			}
+		}
+	}
 	
 	if (ev.payload.settings.charge) {
 		for (let i = 0; i < batteryArray.length; i++) {
@@ -112,7 +130,9 @@ async function animateBatteryImage(ev: WillAppearEvent<BluetoothBatterySettings>
 
 type BluetoothBatterySettings = {
     apiUrl: string;
+	recurring: number;
 	deviceNumber: number;
 	deviceName: string;
 	charge: boolean;
+	animationTime: number;
 };

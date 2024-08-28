@@ -36,5 +36,36 @@
 	<sdpi-item label="Checkbox">
 		<sdpi-checkbox setting="charge" label="Battery charges"></sdpi-checkbox>
 	</sdpi-item>
+	<hr />
+	<sdpi-item label="Time between Checking">
+		<sdpi-textfield
+		  setting="recurring"
+		  placeholder="minutes"
+		  min="0"
+		  pattern="[0-9]+"
+		  required
+		></sdpi-textfield>
+		<span>Default: 5 minutes</span>
+		<br />
+		<span>Time in minutes between checking the battery level</span>
+		<br />
+		<span>0 or empty will default to 5 minutes</span>
+		
+	</sdpi-item>
+	<sdpi-item label="Animation step time">
+		<sdpi-textfield
+		  setting="animationTime"
+		  placeholder="settings"
+		  min="0"
+		  pattern="[0-9]+"
+		  required
+		></sdpi-textfield>
+		<span>Time in miliseconds between each animation update</span>
+		<br />
+		<span>Default: 400 ms</span>
+		<br />
+		<span>0 or empty will disable animation</span>
+	</sdpi-item>
+
 </body>
 </html>
