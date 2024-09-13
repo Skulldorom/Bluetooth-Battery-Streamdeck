@@ -99,7 +99,7 @@ async function animateBatteryImage(ev: WillAppearEvent<BluetoothBatterySettings>
 		"imgs/actions/battery/Three",
 		"imgs/actions/battery/Full"];
 
-	let chargeIntervals = [10,30,50,70,90];
+	let chargeIntervals = [10,20,40,70,90];
 	let waitTime = ev.payload.settings.animationTime ?? 500;
 	
 	// Disable animtion if waitime is less than 100ms
