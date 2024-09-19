@@ -99,7 +99,7 @@ async function animateBatteryImage(ev: WillAppearEvent<BluetoothBatterySettings>
 		"imgs/actions/battery/Three",
 		"imgs/actions/battery/Full"];
 
-	let chargeIntervals = [10,20,40,70,90];
+	let chargeIntervals = [10,20,50,70,90];
 	let waitTime = ev.payload.settings.animationTime ?? 500;
 	
 	// Disable animtion if waitime is less than 100ms
@@ -120,10 +120,10 @@ async function animateBatteryImage(ev: WillAppearEvent<BluetoothBatterySettings>
 		}
 	}
 	else {
-		for (let i=batteryArray.length-1; i>=0; i--) {
+		for (let i=batteryArray.length-1; i>=0; i--) {			
 			await ev.action.setImage(batteryArray[i]);
-			await new Promise(r => setTimeout(r, waitTime));
-			if (batteryLevel >= chargeIntervals[i]) return;
+			await new Promise(r => setTimeout(r, waitTime));		
+			if (batteryLevel >= chargeIntervals[i-1]) return;							
 		}
 	}
 }
