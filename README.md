@@ -22,6 +22,50 @@ The official [Documentation](https://www.bluetoothgoodies.com/info/battery-monit
 
 - Version used for Bluetooth Battery Monitor 2.22.0.1.
 
+# Enabling the Bluetooth Battery Monitor API on Port 9876
+
+Follow these steps to enable the API server for Bluetooth Battery Monitor, listening on port **9876**.
+
+---
+
+## 1. Open Registry Editor
+
+- Press `Win + R`, type `regedit`, and press **Enter**.
+
+---
+
+## 2. Navigate to the Registry Key
+Go to:
+HKEY_CURRENT_USER\Software\Luculent Systems\Bluetooth Battery Monitor\ApiServer
+
+
+> **Tip:** If any key in this path does not exist, right-click the parent key, choose **New > Key**, and name it accordingly.
+
+---
+
+## 3. Add or Edit API Settings
+
+Within the `ApiServer` key:
+
+### a. **Add/Edit the "port" Entry**
+- Right-click on the right pane, select **New > DWORD (32-bit) Value**.
+- Name it: `port`
+- Double-click `port`, set the **Base** to `Decimal`, and the **Value** to `9876`.
+- Click **OK**.
+
+### b. (Optional) **Add/Edit the "ip" Entry**
+- Right-click, select **New > String Value**.
+- Name it: `ip`
+- Double-click `ip` and set its value to: `127.0.0.1`
+- Click **OK**.
+
+---
+
+## 4. Restart Bluetooth Battery Monitor
+
+- Exit the Bluetooth Battery Monitor app (`BattMonUI.exe`) completely.
+- Start it again to apply the new settings.
+
 ## Default Configuration
 
 - API URL: `http://127.0.0.1:9876/devices`
