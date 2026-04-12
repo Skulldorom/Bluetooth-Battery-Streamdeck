@@ -11,11 +11,11 @@
 		"@rollup/plugin-node-resolve": "^15.2.2",
 		"@rollup/plugin-terser": "^1.0.0",
 		"@rollup/plugin-typescript": "^11.1.5",
-		"@tsconfig/node20": "^20.1.2",
-		"@types/node": "20.8.10",
+		"@tsconfig/node24": "^24.0.0",
+		"@types/node": "^24.0.0",
 		"rollup": "^4.60.1",
 		"tslib": "^2.6.2",
-		"typescript": "^5.2.2"
+		"typescript": "^5.7.0"
 	},
 	"dependencies": {
 		"@elgato/streamdeck": "^0.3.0"
