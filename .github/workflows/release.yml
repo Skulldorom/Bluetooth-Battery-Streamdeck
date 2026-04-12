@@ -12,6 +12,15 @@ on:
       - 'rollup.config.mjs'
       - 'tsconfig.json'
   workflow_dispatch:
+    inputs:
+      release_type:
+        description: 'Release type'
+        required: true
+        default: 'minor'
+        type: choice
+        options:
+          - minor
+          - major
 
 permissions:
   contents: write
@@ -52,8 +61,13 @@ jobs:
             VERSION="${LATEST_TAG#V}"
             MAJOR=$(echo "$VERSION" | cut -d. -f1)
             MINOR=$(echo "$VERSION" | cut -d. -f2)
-            NEXT_MAJOR=$MAJOR
-            NEXT_MINOR=$((MINOR + 1))
+            if [ "${{ github.event.inputs.release_type }}" = "major" ]; then
+              NEXT_MAJOR=$((MAJOR + 1))
+              NEXT_MINOR=0
+            else
+              NEXT_MAJOR=$MAJOR
+              NEXT_MINOR=$((MINOR + 1))
+            fi
           fi
 
           NEXT_TAG="V${NEXT_MAJOR}.${NEXT_MINOR}"
