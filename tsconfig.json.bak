@@ -1,0 +1,18 @@
+{
+"extends": "@tsconfig/node24/tsconfig.json",
+"compilerOptions": {
+"customConditions": [
+"node"
+],
+"module": "ES2022",
+"moduleResolution": "Bundler",
+"target": "es2022",
+"lib": ["es2024", "ESNext.Array", "ESNext.Collection", "ESNext.Iterator"]
+},
+"include": [
+"src/**/*.ts"
+],
+"exclude": [
+"node_modules"
+]
+}
