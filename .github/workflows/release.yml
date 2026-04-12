@@ -1,0 +1,92 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'src/**'
+      - 'com.skulldorom.bluetoothbattery.sdPlugin/**'
+      - 'package.json'
+      - 'package-lock.json'
+      - 'rollup.config.mjs'
+      - 'tsconfig.json'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build plugin
+        run: npm run build
+
+      - name: Determine next version
+        id: version
+        run: |
+          # Get the latest release tag (format: V<major>.<minor>)
+          LATEST_TAG=$(git tag --list 'V*' --sort=-v:refname | head -n 1)
+
+          if [ -z "$LATEST_TAG" ]; then
+            NEXT_MAJOR=1
+            NEXT_MINOR=0
+          else
+            # Strip leading 'V'
+            VERSION="${LATEST_TAG#V}"
+            MAJOR=$(echo "$VERSION" | cut -d. -f1)
+            MINOR=$(echo "$VERSION" | cut -d. -f2)
+            NEXT_MAJOR=$MAJOR
+            NEXT_MINOR=$((MINOR + 1))
+          fi
+
+          NEXT_TAG="V${NEXT_MAJOR}.${NEXT_MINOR}"
+          MANIFEST_VERSION="${NEXT_MAJOR}.${NEXT_MINOR}.0.0"
+
+          echo "tag=${NEXT_TAG}" >> "$GITHUB_OUTPUT"
+          echo "manifest_version=${MANIFEST_VERSION}" >> "$GITHUB_OUTPUT"
+
+      - name: Update manifest version
+        run: |
+          jq '.Version = "${{ steps.version.outputs.manifest_version }}"' \
+            com.skulldorom.bluetoothbattery.sdPlugin/manifest.json > /tmp/manifest.json
+          mv /tmp/manifest.json com.skulldorom.bluetoothbattery.sdPlugin/manifest.json
+
+      - name: Install Elgato CLI
+        run: npm install -g @elgato/cli@latest
+
+      - name: Pack plugin
+        run: streamdeck pack com.skulldorom.bluetoothbattery.sdPlugin --output .
+
+      - name: Create release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          TAG="${{ steps.version.outputs.tag }}"
+          PLUGIN_FILE="com.skulldorom.bluetoothbattery.streamDeckPlugin"
+
+          if [ ! -f "$PLUGIN_FILE" ]; then
+            echo "Error: Plugin file '$PLUGIN_FILE' not found after pack step."
+            exit 1
+          fi
+
+          gh release create "$TAG" \
+            --title "$TAG" \
+            --generate-notes \
+            "$PLUGIN_FILE"
