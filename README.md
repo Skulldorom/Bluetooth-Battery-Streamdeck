@@ -1,5 +1,9 @@
 # Bluetooth Battery Monitor for Streamdeck
 
+<p align="center">
+  <a href="https://ko-fi.com/skulldorom"><img src="https://ko-fi.com/img/githubbutton_sm.svg" alt="Support me on Ko-fi" /></a>
+</p>
+
 This plugin is used to show the battery % of bluetooth devices
 Using [Bluetooth Battery Monitor](https://www.bluetoothgoodies.com/)
 
